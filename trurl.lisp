@@ -40,7 +40,7 @@
 					     (unless (lem:empty? c)
 					       (htm (:div
 						     :class (format
-							     nil "unit ~a"
+							     nil "unit ~(~a~)"
 							     (class-name (class-of (lem:occupant c))))))))))))))))))
 
 (define-handler (js/main.js :content-type "application/javascript") ()
@@ -325,4 +325,6 @@
 	 (".grid .grid-row" :display block :clear both)
 	 (".cell" :float left :width 15px :height 15px
 		  :background-color "#eee" :margin-right 1px :margin-bottom 1px)
-	 (".cell .unit" :background-color "#f00" :width 100% :height 100%))))
+	 (".cell .unit" :background-color "#f00" :width 100% :height 100%)
+	 (".unit.box" :background-color "#0f0")
+	 (".unit.line" :background-color "#00f" ))))
