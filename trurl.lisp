@@ -9,6 +9,7 @@
 
 (lem:seed! *grid* 20 20 (lem:line))
 (lem:seed! *grid* 30 30 (lem:ray))
+(lem:seed! *grid* 60 20 (lem:box))
 
 (bt:make-thread
  (lambda ()
