@@ -11,24 +11,34 @@
 		     (str (ps* `(progn (defvar +width+ ,(lem:grid-width *grid*))
 				       (defvar +height+ ,(lem:grid-height *grid*)))))))
 	   (:body
+	    (:div :id "palette")
 	    (:div :id "grid-container")))))
 
 (define-handler (js/main.js :content-type "application/javascript") ()
   (ps
-    (defun cell-template (cell)
+    (defun spawn-here (x y)
+      (when +selected-palette-item+
+	(post/json "/api/place" (create :x x :y y :atom +selected-palette-item+)
+		   (lambda (dat) (console.log dat)))))
+
+    (defun cell-template (cell x y)
       (who-ps-html
        (:div :class "cell"
+	     :onclick (+ "spawnHere(" x "," y ")")
 	     (when cell
 	       (who-ps-html
 		(:div :class (+ "unit " (@ cell type))))))))
 
-    (defun grid-row-template (row)
+    (defun grid-row-template (row y)
       (who-ps-html
        (:li :class "grid-row"
-	    (join (map cell-template row)))))
+	    (join (loop for x from 0 for cell in row
+		     collect (cell-template cell x y))))))
 
     (defun grid-template (grid)
-      (who-ps-html (:ul :class "grid" (join (map grid-row-template grid)))))
+      (who-ps-html (:ul :class "grid"
+			(join (loop for y from 0 for rw in grid
+				 collect (grid-row-template rw y))))))
 
     (defun update-grid! ()
       (get/json "/api/look-at" (create :from-x 0 :from-y 0 :to-x +width+ :to-y +height+)
@@ -40,8 +50,36 @@
       (update-grid!)
       (set-timeout update-loop! 1000))
 
+
+    (defvar +selected-palette-item+ nil)
+
+    (defun select-palette-item (elem name)
+      (cond ((chain elem class-list (contains "selected"))
+	     (chain elem class-list (remove "selected"))
+	     (setf +selected-palette-item+ nil))
+	    (t
+	     (map
+	      (lambda (el) (chain el class-list (remove "selected")))
+	      (by-selector-all ".palette-item.selected"))
+	     (chain elem class-list (add "selected"))
+	     (setf +selected-palette-item+ name))))
+
+    (defun palette-item-template (name)
+      (who-ps-html (:li :class "palette-item" :onclick (+ "selectPaletteItem(this, '" name "')") name)))
+
+    (defun palette-template (items)
+      (who-ps-html
+       (:ul :class "palette"
+	    (join (map palette-item-template items)))))
+
+    (defun setup-palette! ()
+      (get/json "/api/inventory" (create)
+		(lambda (dat)
+		  (dom-set (by-selector "#palette") (palette-template dat)))))
+
     (dom-ready
      (lambda ()
+       (setup-palette!)
        (update-loop!)))))
 
 (define-handler (js/base.js :content-type "application/javascript") ()
