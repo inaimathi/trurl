@@ -6,10 +6,13 @@
   :license "Specify license here"
   :depends-on (#:house
                #:cl-who
+	       #:yason
                #:parenscript
                #:cl-css
                #:lem
 	       #:bordeaux-threads)
   :serial t
   :components ((:file "package")
+	       (:file "util")
+	       (:file "css") (:file "front-end") (:file "api")
                (:file "trurl")))
