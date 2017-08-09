@@ -14,5 +14,6 @@
   :serial t
   :components ((:file "package")
 	       (:file "util")
+	       (:file "machines")
 	       (:file "css") (:file "front-end") (:file "api")
                (:file "trurl")))

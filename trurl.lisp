@@ -17,13 +17,6 @@
 (defun in-x-bound? (foo) (>= (lem:grid-width *grid*) foo 0))
 (defun in-y-bound? (foo) (>= (lem:grid-height *grid*) foo 0))
 
-;;;;;;;;;; New machines
-(lem:define-machine wander
-  (let ((dest (pick (loop for (x y) in lem:n*extended
-		       for c = (lem:neighbor x y)
-		       when (and c (lem:empty? c)) collect c))))
-    (when dest (lem:move-to! dest lem:here))))
-
 ;;;;;;;;;; Initial state setup
 (lem:seed! *grid* 10 10 (wander))
 (lem:seed! *grid* 15 15 (wander))
