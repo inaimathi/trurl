@@ -9,6 +9,6 @@
 								 (to-y :integer (in-x-bound? to-y)))
   (grid->json *grid* from-x from-y to-x to-y))
 
-(define-handler (/api/place :content-type "application/json" :method :post) ((x :integer (in-x-bound? x)) (y :integer (in-x-bound? y)) (atom :atom))
-  (lem:seed! *grid* x y atom)
+(define-handler (/api/place :content-type "application/json" :method :post) ((x :integer (in-x-bound? x)) (y :integer (in-x-bound? y)) (unit :unit))
+  (lem:seed! *grid* x y unit)
   (->json "ok"))

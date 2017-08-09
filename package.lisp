@@ -8,9 +8,9 @@
 
 (in-package #:trurl)
 
-(defparameter *update-frequency* 1)
+(defparameter *update-frequency* .5)
 
-(define-http-type (:atom)
+(define-http-type (:unit)
     :type-expression `(let ((name (intern (string-upcase ,parameter) :trurl)))
 			(and (find-class name) (fdefinition name)
 			     (funcall (fdefinition name))))

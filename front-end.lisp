@@ -18,7 +18,7 @@
   (ps
     (defun spawn-here (x y)
       (when +selected-palette-item+
-	(post/json "/api/place" (create :x x :y y :atom +selected-palette-item+)
+	(post/json "/api/place" (create :x x :y y :unit +selected-palette-item+)
 		   (lambda (dat) (console.log dat)))))
 
     (defun cell-template (cell x y)
@@ -48,7 +48,7 @@
 
     (defun update-loop! ()
       (update-grid!)
-      (set-timeout update-loop! 1000))
+      (set-timeout update-loop! 500))
 
 
     (defvar +selected-palette-item+ nil)
