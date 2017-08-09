@@ -15,5 +15,6 @@
   :components ((:file "package")
 	       (:file "util")
 	       (:file "machines")
+	       (:file "grid")
 	       (:file "css") (:file "front-end") (:file "api")
                (:file "trurl")))

@@ -6,23 +6,43 @@
 	    (:title "Trurl")
 	    (:link :rel "stylesheet" :href "/css/main.css")
 	    (:script :type "text/javascript" :src "/js/base.js")
-	    (:script :type "text/javascript" :src "/js/main.js"))
+	    (:script :type "text/javascript" :src "/js/main.js")
+	    (:script :type "text/javascript"
+		     (str (ps* `(progn (defvar +width+ ,(lem:grid-width *grid*))
+				       (defvar +height+ ,(lem:grid-height *grid*)))))))
 	   (:body
-	    (:ul :class "grid"
-		 (loop for y from 0 to (- (lem:grid-height *grid*) 1)
-		    do (htm (:li :class "grid-row"
-				 (loop for x from 0 to (- (lem:grid-width *grid*) 1)
-				    for c = (lem:get-cell *grid* x y)
-				    do (htm (:div
-					     :class "cell"
-					     (unless (lem:empty? c)
-					       (htm (:div
-						     :class (format
-							     nil "unit ~(~a~)"
-							     (class-name (class-of (lem:occupant c))))))))))))))))))
+	    (:div :id "grid-container")))))
 
 (define-handler (js/main.js :content-type "application/javascript") ()
-  (ps (console.log "HELLO FROM JAVASCRIPTLAND!")))
+  (ps
+    (defun cell-template (cell)
+      (who-ps-html
+       (:div :class "cell"
+	     (when cell
+	       (who-ps-html
+		(:div :class (+ "unit " (@ cell type))))))))
+
+    (defun grid-row-template (row)
+      (who-ps-html
+       (:li :class "grid-row"
+	    (join (map cell-template row)))))
+
+    (defun grid-template (grid)
+      (who-ps-html (:ul :class "grid" (join (map grid-row-template grid)))))
+
+    (defun update-grid! ()
+      (get/json "/api/look-at" (create :from-x 0 :from-y 0 :to-x +width+ :to-y +height+)
+		(lambda (dat)
+		  (dom-set (by-selector "#grid-container")
+			   (grid-template dat)))))
+
+    (defun update-loop! ()
+      (update-grid!)
+      (set-timeout update-loop! 1000))
+
+    (dom-ready
+     (lambda ()
+       (update-loop!)))))
 
 (define-handler (js/base.js :content-type "application/javascript") ()
   (ps
