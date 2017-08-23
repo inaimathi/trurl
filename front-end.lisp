@@ -8,8 +8,8 @@
 	    (:script :type "text/javascript" :src "/js/base.js")
 	    (:script :type "text/javascript" :src "/js/main.js")
 	    (:script :type "text/javascript"
-		     (str (ps* `(progn (defvar +width+ ,(lem:grid-width *grid*))
-				       (defvar +height+ ,(lem:grid-height *grid*)))))))
+		     (str (ps* `(progn (defvar +width+ ,(lem:width *grid*))
+				       (defvar +height+ ,(lem:height *grid*)))))))
 	   (:body
 	    (:div :id "palette")
 	    (:div :id "grid-container")))))
