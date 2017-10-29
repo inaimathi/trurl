@@ -6,8 +6,12 @@
        do (setf (gethash k h) v))
     h))
 
-(defmethod pick ((arr array)) (aref arr (random (length arr))))
-(defmethod pick ((lst list)) (nth (random (length lst)) lst))
+(defmethod pick ((arr array))
+  (when (not (zerop (length arr))) (aref arr (random (length arr)))))
+(defmethod pick ((lst list))
+  (when lst (nth (random (length lst)) lst)))
+
+(defun shuffle! (lst) (sort lst #'< :key (lambda (v) (declare (ignore v)) (random 1.0))))
 
 (defmethod yason:encode ((object symbol) &optional stream)
   (yason:encode (string-downcase (symbol-name object)) stream))

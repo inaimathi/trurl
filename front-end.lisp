@@ -64,13 +64,19 @@
 	     (chain elem class-list (add "selected"))
 	     (setf +selected-palette-item+ name))))
 
+    (defun reset-grid ()
+      (post/json "/api/reset-grid" (create)))
+
     (defun palette-item-template (name)
       (who-ps-html (:li :class "palette-item" :onclick (+ "selectPaletteItem(this, '" name "')") name)))
 
     (defun palette-template (items)
       (who-ps-html
        (:ul :class "palette"
-	    (join (map palette-item-template items)))))
+	    (join (map palette-item-template items))
+	    (:li (:hr))
+	    (:li :class "palette-item"
+		 :onclick "resetGrid()" "Reset!"))))
 
     (defun setup-palette! ()
       (get/json "/api/inventory" (create)

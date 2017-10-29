@@ -2,6 +2,8 @@
 
 (defparameter *grid* (lem:make-grid 60 30))
 
+(defun reset! () (setf *grid* (lem:make-grid 60 30)))
+
 (defun grid->json (grid &optional (from-x 0) (from-y 0) (to-x (lem:width grid)) (to-y (lem:height grid)))
   (->json
    (loop for y from from-y repeat to-y

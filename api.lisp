@@ -12,3 +12,7 @@
 (define-handler (/api/place :content-type "application/json" :method :post) ((x :integer (in-x-bound? x)) (y :integer (in-x-bound? y)) (unit :unit))
   (lem:seed! *grid* x y unit)
   (->json "ok"))
+
+(define-handler (/api/reset-grid :content-type "application/json" :method :post) ()
+  (reset!)
+  (->json "ok"))
