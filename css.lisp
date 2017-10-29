@@ -9,8 +9,11 @@
 		  :background-color "#eee" :margin-right 1px :margin-bottom 1px)
 	 (".cell:hover" :border "1px solid red" :width 16px :height 16px)
 	 (".cell .unit" :background-color "#f00" :width 100% :height 100%)
+
 	 (".unit.box" :background-color "#0f0")
 	 (".unit.line" :background-color "#00f")
+	 (".unit.gg" :background-color "#336699")
+	 (".unit.bunny" :background-color "#fff")
 
 	 ("#palette" :float right :width 160px :background-color "#eee" :padding 10px)
 	 (".palette" :list-style-type none :margin 0 :padding 0)
