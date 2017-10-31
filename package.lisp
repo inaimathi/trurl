@@ -8,7 +8,7 @@
 
 (in-package #:trurl)
 
-(defparameter *update-frequency* .5)
+(defparameter *update-frequency* 1)
 
 (define-http-type (:unit)
     :type-expression `(let ((name (intern (string-upcase ,parameter) :trurl)))

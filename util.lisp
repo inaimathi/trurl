@@ -1,5 +1,9 @@
 (in-package #:trurl)
 
+(let ((s *standard-output*))
+  (defun log! (label &rest args)
+    (format s "~s: ~{~s~^ ~}~%" label args)))
+
 (defun hash (&rest k/v-pairs)
   (let ((h (make-hash-table)))
     (loop for (k v) on k/v-pairs by #'cddr

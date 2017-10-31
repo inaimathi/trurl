@@ -12,13 +12,16 @@
 
 	 (".unit.box" :background-color "#0f0")
 	 (".unit.line" :background-color "#00f")
-	 (".unit.gg" :background-color "#336699")
 	 (".unit.bunny" :background-color "#fff")
+	 (".unit.ff" :background-color "#339966")
+	 (".unit.gg" :background-color "#336699")
 
 	 (".unit.router" :background-color "#000")
 	 (".unit.lemon" :background-color "yellow")
 	 (".unit.router-fluid" :background-color "#99f")
 	 (".unit.router-endpoint" :background-color "green")
+	 (".unit.router-message" :background "radial-gradient(green, #eee)")
+	 (".unit.router-input" :background "radial-gradient(red, #eee)")
 
 	 ("#palette" :float right :width 160px :background-color "#eee" :padding 10px)
 	 (".palette" :list-style-type none :margin 0 :padding 0)
