@@ -15,6 +15,11 @@
 	 (".unit.gg" :background-color "#336699")
 	 (".unit.bunny" :background-color "#fff")
 
+	 (".unit.router" :background-color "#000")
+	 (".unit.lemon" :background-color "yellow")
+	 (".unit.router-fluid" :background-color "#99f")
+	 (".unit.router-endpoint" :background-color "green")
+
 	 ("#palette" :float right :width 160px :background-color "#eee" :padding 10px)
 	 (".palette" :list-style-type none :margin 0 :padding 0)
 	 (".palette-item" :cursor pointer :background-color "#ddd" :margin-bottom 5px :padding 5px)
